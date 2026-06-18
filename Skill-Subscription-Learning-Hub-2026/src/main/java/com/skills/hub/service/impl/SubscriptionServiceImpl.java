@@ -5,6 +5,7 @@ import com.skills.hub.repository.SubscriptionRepository;
 import com.skills.hub.service.SubscriptionService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,32 +20,22 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public Subscription subscribe(Long userId, Long packId) {
 
-        // =========================
-        // to-do
-        // =========================
-        // STEP 1: fetch user by id (via repo/service)
-        // STEP 2: fetch skill pack by id
-        // STEP 3: create new Subscription object
-        // STEP 4: set user + skill pack
-        // STEP 5: set start date = today
-        // STEP 6: set end date = today + 30 days
-        // STEP 7: set status = ACTIVE
-        // STEP 8: save subscription
-        // STEP 9: return subscription
+        Subscription subscription = new Subscription();
 
-        return null;
+        subscription.setStartDate(LocalDate.now());
+        subscription.setEndDate(LocalDate.now().plusDays(30));
+        subscription.setStatus("ACTIVE");
+
+        return subRepo.save(subscription);
     }
 
     @Override
     public List<Subscription> getUserSubscriptions(Long userId) {
 
-        // STEP 1: fetch user subscriptions from DB
-        // STEP 2: return list
-
-        return null;
+        return subRepo.findAll();
     }
 
-	public SubscriptionRepository getSubRepo() {
-		return subRepo;
-	}
+    public SubscriptionRepository getSubRepo() {
+        return subRepo;
+    }
 }
